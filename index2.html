@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>i2c-SHT30</title>
+    <style>
+      h1,
+      p {
+        color: blue;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>SHT30 </h1>
+    <p>
+      <span>Temperature</span>
+      <span id="temperatureDisplay"></span>
+    </p>
+    <p>
+      <span>Humidity</span>
+      <span id="humidityDisplay"></span>
+    </p>
+    <script src="node_modules/@chirimen/sht30/sht30.js"></script>
+    <script src="./main.js" defer></script>
+  </body>
+</html>
+
