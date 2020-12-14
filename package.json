@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@chirimen/sht30": "^1.0.2",
+    "mcp-spi-adc": "^3.1.0",
     "node-web-gpio": "^1.0.1",
     "node-web-i2c": "^1.1.4",
     "spi-device": "^3.1.0"
