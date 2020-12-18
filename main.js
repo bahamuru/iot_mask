@@ -1,4 +1,4 @@
-'use strict';
+`use strict`;
 
 const { requestI2CAccess } = require("node-web-i2c");
 const SHT30 = require("@chirimen/sht30");
@@ -21,6 +21,7 @@ async function measure(sht30){
 	const {humidity, temperature} = await sht30.readData();
 	b = temperature.toFixed(2);
 	c = humidity.toFixed(2);
+	await sleep(50);
 //	document.getElementById("temperatureDisplay").innerHTML = `${temperature.toFixed(2)} ℃'`
 //	document.getElementById("humidityDisplay").innerHTML = `${humidity.toFixed(2)} %`;
 //	console.log(`${temperature.toFixed(2)}`);
@@ -38,7 +39,7 @@ async function measureadc(){
 		await gas.read((err, reading) => {
 			if (err) throw err;
 			//console.log((reading.value * 3.3));
-			a = (reading.value * 1023);
+			a = (reading.value * 5);
 		});
 	});
 	}catch(err){
@@ -59,9 +60,9 @@ async function main(){
 	const i2c1 = i2cAccess.ports.get(1);
 	const sht30 = new SHT30(i2c1, 0x44);
 	await sht30.init();
-
+	var i = 0;
 	setInterval(async _ => {
-		await sleep(0.237);
+//		await sleep(0.237);
 		await port3.write(1);
 		await sleep(0.003);
 		await measureadc();
@@ -70,12 +71,15 @@ async function main(){
 		await port4.write(1);
 		await sleep(0.008);
 		await port4.write(0);
-		console.log(a);
-
-		await measure(sht30);
-		console.log(b);
-		console.log(c);
-	},1000);
+	 	console.log(a);
+		if (i==3) {
+			await measure(sht30);
+			console.log(b);
+			console.log(c);
+			i = 0;
+		}
+		i++;
+	},237);
 }
 
 main();
